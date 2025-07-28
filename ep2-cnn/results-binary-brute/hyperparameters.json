@@ -1,0 +1,52 @@
+{
+    "data": "brute data",
+    "classification": "binary, target = 5",
+    "input_shape": [
+        28,
+        28,
+        1
+    ],
+    "conv_layers": [
+        {
+            "filters": 32,
+            "kernel_size": [
+                3,
+                3
+            ],
+            "activation": "relu",
+            "pool_size": [
+                2,
+                2
+            ]
+        },
+        {
+            "filters": 64,
+            "kernel_size": [
+                3,
+                3
+            ],
+            "activation": "relu",
+            "pool_size": [
+                2,
+                2
+            ]
+        }
+    ],
+    "dense_layers": [
+        {
+            "units": 128,
+            "activation": "relu"
+        },
+        {
+            "units": 1,
+            "activation": "sigmoid"
+        }
+    ],
+    "optimizer": "adam",
+    "loss": "binary_crossentropy",
+    "metrics": [
+        "accuracy"
+    ],
+    "epochs": 10,
+    "batch_size": 200
+}

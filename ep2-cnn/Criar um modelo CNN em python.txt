@@ -1,0 +1,72 @@
+Criar um modelo CNN em python
+
+1. Criar o modelo sequencial
+	model = Sequential()
+O que faz: 
+	Cria um objeto de modelo sequencial.
+Como faz: 
+	Sequential é uma classe da biblioteca Keras que permite empilhar camadas linearmente, uma após a outra. Este modelo é apropriado para uma pilha simples de camadas onde cada camada tem exatamente uma entrada e uma saída.
+
+2. Adicionar a primeira camada convolucional
+	model.add(Conv2D(32, kernel_size=(3, 3), activation='relu', input_shape=(28, 28, 1)))
+O que faz: 
+	Adiciona uma camada convolucional com 32 filtros, cada um de tamanho 3x3, e uma função de ativação ReLU.
+CAMADA CONVOLUCIONAL:
+É uma camada que aplica a operação de convolução em dados bidimensionais, como imagens em escala de cinza ou em cores (onde as imagens têm duas dimensões espaciais: altura e largura, e opcionalmente uma terceira dimensão para canais de cor). As camadas convolucionais 2D são usadas principalmente no processamento de imagens.
+OPERAÇÃO DE CONVOLUÇÃO:
+A operação de convolução envolve a passagem de cada filtro sobre a entrada (imagem) em uma série de passos. Para cada posição do filtro, os valores dos pixels na sub-região da imagem coberta pelo filtro são multiplicados pelos valores correspondentes no filtro e somados para produzir um único valor de saída.
+FILTRO = KERNEL:
+Filtros são pequenos blocos (matrizes) de pesos aprendíveis que a camada convolucional usa para varrer a entrada. Cada filtro é aplicado em toda a entrada (através da operação de convolução), produzindo um mapa de ativação que mostra onde certas características (como bordas ou texturas específicas) são detectadas na imagem.
+
+3. Adicionar a primeira camada de pooling (max pooling)
+	model.add(MaxPooling2D(pool_size=(2, 2)))
+O que faz: 
+	Adiciona uma camada de max pooling com uma janela de 2x2.
+CAMADA DE POOLING:
+	Para diminuir a dimensionalidade das imagens, meio que resumir para que tenham menos parâmetros e controlar overfitting
+CAMADA MAX POOLING:
+	Resumir a imagem mantendo só o valor máximo dentro da janela de pooling definida, a imagem resumida terá o valor máximo dentro de cada janela
+JANELA:
+	Parece com o kernel, mas não aplica nenhuma operação dentro dos valores da imagem, a janela só define uma matriz onde vai selecionar o valor máximo
+
+4. Adicionar a segunda camada convolucional
+	model.add(Conv2D(64, kernel_size=(3, 3), activation='relu'))
+O que faz: 
+	Adiciona outra camada convolucional, agora com 64 filtros de tamanho 3x3 e uma função de ativação ReLU.
+SEGUNDA CAMADA CONVOLUCIONAL:
+	Capturar características mais complexas e abstratas, como formas, objetos parciais e padrões mais específicos. Camadas iniciais detectam características de baixo nível, enquanto camadas posteriores combinam essas características para detectar padrões mais complexos e de alto nível (hierarquia de características).
+MAIS FILTROS:
+	Ter mais filtros em camadas posteriores para capturar uma variedade maior de padrões complexos
+
+
+5. Adicionar a segunda camada de pooling (max pooling)
+	model.add(MaxPooling2D(pool_size=(2, 2)))
+O que faz: 
+	Adiciona outra camada de max pooling com uma janela de 2x2.
+
+6. Adicionar a camada de flattening
+	model.add(Flatten())
+O que faz: 
+	Transforma a entrada (matriz 2D) em um vetor 1D.
+PREPARAR PARA A CAMADA DENSA:
+	As camadas densas só recebem vetores unidimensionais
+
+7. Adicionar a camada densa totalmente conectada
+	model.add(Dense(128, activation='relu'))
+O que faz: 
+	Adiciona uma camada densa com 128 neurônios e uma função de ativação ReLU.
+CAMADA DENSA:
+	Camada em uma rede neural onde cada neurônio está conectado a todos os neurônios da camada anterior. Cada neurônio em uma camada densa recebe entrada de todos os neurônios da camada anterior e aplica uma transformação linear seguida de uma função de ativação.
+POR QUE USAR:
+	Após a extração de características pelas camadas convolucionais, a camada densa combina essas características para tomar decisões finais. As camadas densas são responsáveis por criar as relações mais complexas entre as características aprendidas.
+MESMA FUNÇÃO DE ATIVAÇÃO ATÉ AQUI:
+	Uniformidade simples, mesma função de ativação por simplicidade e eficiência
+
+8. Adicionar a camada de saída
+	model.add(Dense(10, activation='softmax'))
+O que faz: 
+	Adiciona a camada de saída com 10 neurônios e uma função de ativação softmax.
+POR QUE UMA SEGUNDA CAMADA DENSA:
+	A primeira camada densa já combinou as características extraídas pelas camadas convolucionais em representações de alto nível. A segunda camada densa usa essas representações para fazer a classificação final, agora com 10 neurônios, um para cada classe de dígitos (0-9) - mapeamento de classes.
+MUDANÇA DA FUNÇÃO DE ATIVAÇÃO:
+	A função softmax é usada na camada de saída Para problemas de classificação. Ela converte os logits (valores não normalizados) em probabilidades que somam 1. A softmax permite que a saída da rede seja interpretada como uma distribuição de probabilidade sobre as classes possíveis. Cada neurônio na camada de saída indica a probabilidade da entrada pertencer a uma das classes.

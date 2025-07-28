@@ -1,0 +1,15 @@
+Saídas de cada época no terminal
+300/300
+	Indica o progresso dos batches (lotes) dentro da época. batches: conjunto de amostras de dados usadas para treinar a rede neural em uma única iteração.
+22s
+	Tempo total levado para completar a época.
+73ms/step
+	Tempo médio por batch (lote).
+accuracy: 0.9295
+	Precisão média no conjunto de treinamento durante esta época.
+loss: 0.2533
+	Perda média no conjunto de treinamento durante esta época.
+val_accuracy: 0.9791
+	Precisão média no conjunto de validação durante esta época.
+val_loss: 0.0668
+	Perda média no conjunto de validação durante esta época.
